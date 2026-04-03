@@ -13,7 +13,7 @@ def select():
    event_select= input("Choose : ")
         
 
-    
+  
    link = "https://www.football-data.co.uk/mmz4281/" + year+"/"+event_select+"."+"csv"
    df=pd.read_csv(link)
    print(df)
@@ -38,6 +38,20 @@ def select():
           print("show top away teams of full time")
           away_goals = df.groupby("AwayTeam") ["FTAG"].max().head()
           print(away_goals)
+        elif n ==4 :
+           print("Most won team : ")
+           home_wons= df[df["FTR"]== "H"] 
+           df["HomeTeam"].value_counts()
+           away_wons= df[df["FTR"]== "A"] 
+           df["AwayTeam"].value_counts()
+           print(home_wons.head().sort_values(ascending=False,by="FTR"))
+           print(away_wons.head().sort_values(ascending=False,by="FTR"))
+
+           best_team=home_wons.add(away_wons,fill_value=0)
+           best_team= best_team.sort_values(ascending=False)
+           print(best_team)
+
+           
 
 
 
@@ -50,8 +64,6 @@ def main():
         n = int(input("Enter your choice :"))
         if n == 1:
            select()
-
-    
         elif n==2 :
           print("show top teams ")
         elif n==3 :
