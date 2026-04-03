@@ -25,6 +25,7 @@ def select():
         print("3.Show Best Team by Result")
         print("4.Show Best Team by Winrate")
         print("5.Show Best Team By Goals")
+        print("Best Goal scoring teams")
         n = int(input("Enter your choice :"))
        
         if n==1 :
@@ -37,7 +38,7 @@ def select():
           print(home_stats.sort_values(ascending=False))
           sort=home_stats.sort_values(ascending=False)
           
-          sort.plot(kind='bar')
+          sort.plot(kind="bar")
           pl.xlabel("Teams")
           pl.ylabel("Goals")
           pl.title("Goals scord by Teams")
@@ -133,6 +134,37 @@ def select():
           pl.ylabel("")
           pl.plot()
           pl.show()
+        elif 6 :
+           
+           hs_team = df[["HS","HomeTeam","FTHG"]].copy()
+           hs_team.rename(columns={"HS":"TeamShots","HomeTeam":"Team","FTHG":"Goals"},inplace=True)
+           hs_team = hs_team.groupby("Team") [['TeamShots','Goals']].sum()
+           print(hs_team)
+           as_team = df[["AS","AwayTeam","FTAG"]].copy()
+           as_team.rename(columns={"AS":"TeamShots","AwayTeam":"Team","FTAG":"Goals"},inplace=True)
+           as_team = as_team.groupby("Team") [['TeamShots','Goals']].sum()
+           print(as_team)
+
+           ts_team = pd.concat([hs_team,as_team])
+           shotrate = pd.concat([hs_team,as_team])
+           ts_team.groupby("Team") [["Goals","TeamShots"]].value_counts()
+           
+           total_shots=ts_team['TeamShots'].value_counts()
+           total_goals=ts_team['Goals'].value_counts()
+           shotrate = (total_goals/total_shots).sort_values(ascending=False)
+           round(shotrate,2)
+           shotrate.groupby('Team')
+          #  print(round(shotrate,2))
+           sort6=shotrate
+           sort6.plot(kind="bar")
+           pl.title("Best Team By Goals")
+           pl.xlabel("")
+           pl.ylabel("")
+           pl.plot()
+           pl.show()
+
+
+           
                    
 def main():
     run =True
