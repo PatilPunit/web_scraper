@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np 
 import math
+import matplotlib.pyplot as pl
  #selection function
 def select():
    l=[17,18,19,20,21,22,23] #kist of years
@@ -34,6 +35,15 @@ def select():
           
           # home_goals["Goals"] = home_team.groupby("HomeTeam") ["FTHG"].value_counts().unstack(fill_value=0)
           print(home_stats.sort_values(ascending=False))
+          sort=home_stats.sort_values(ascending=False)
+          
+          sort.plot(kind='bar')
+          pl.xlabel("Teams")
+          pl.ylabel("Goals")
+          pl.title("Goals scord by Teams")
+          pl.xticks(rotation=90)
+          pl.plot()
+          pl.show()
           
         elif n==2:
           print("show top away teams of full time")   #showing the away team has best score at full time 
@@ -44,6 +54,15 @@ def select():
 
           away_stats=away_goals.groupby("AwayTeam")  ["Goals"].sum()
           print(away_stats.sort_values(ascending=False))
+          sort2=away_stats.sort_values(ascending=False)
+          sort2.plot(kind="bar")
+          pl.xlabel("Teams")
+          pl.ylabel("Goals")
+          pl.title("Goals scord by Teams")
+          pl.xticks(rotation=90)
+          pl.plot()
+          pl.show()
+          
           
           # away_goals = df.groupby("AwayTeam") ["FTAG"].max()
          
@@ -57,9 +76,18 @@ def select():
           away_team=away_team.rename(columns={"AwayTeam":"Team"},inplace=True)
  
           all_team = pd.concat([home_team,away_team])
-          team_stats= all_team.groupby("Team") ["result"].value_counts().unstack(fill_value=0).head()
+          team_stats= all_team.groupby("Team") ["result"].value_counts().unstack(fill_value=0)
           print(team_stats.sort_values(ascending=False,by="W"))
-        
+          sort3=team_stats.sort_values(ascending=False,by="W")
+          sort3.plot(kind="bar")
+          pl.xlabel("Teams")
+          pl.ylabel("Goals")
+          pl.title("Best team  by result")
+          pl.xticks(rotation=90)
+          pl.plot()
+          pl.show()
+          
+          
         elif n == 4:
           home_teams =  df[["HomeTeam","FTR"]].copy() #best team which has best winning rate
           home_teams["result"]=home_teams["FTR"].map({'H':'W','D':'D','A':'L'})
@@ -75,6 +103,13 @@ def select():
 
           winrate=(win/matches).sort_values(ascending=False)
           print(round(winrate,2))
+          sort4=winrate
+          sort4.plot(kind="bar")
+          pl.title("Best Team By  winning rate")
+          pl.xlabel("")
+          pl.ylabel("")
+          pl.plot()
+          pl.show()
 
         elif n == 5  : 
           home_g = df[["HomeTeam","FTHG"]].copy() #best away and home team by goals
@@ -90,6 +125,14 @@ def select():
           all_g=pd.concat([away_g,home_g])
           # all_g = all_g.groupby('Team') ['Goal'].sum()
           print(all_g.sort_values(ascending=False))
+          sort5=all_g.sort_values(ascending=False)
+
+          sort5.plot(kind="bar")
+          pl.title("Best Team By Goals")
+          pl.xlabel("")
+          pl.ylabel("")
+          pl.plot()
+          pl.show()
                    
 def main():
     run =True
