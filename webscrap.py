@@ -44,6 +44,8 @@ def select():
           
           print(home_stats.sort_values(ascending=False))
           sort=home_stats.sort_values(ascending=False)
+          top_team=sort.index[0]
+          print(f"[bold cyan]{top_team} is the Most Consistent in Home . [/bold cyan]",emoji.emojize(":House:"))
           
           sort.plot(kind="bar")
           pl.xlabel("Teams")
@@ -62,6 +64,9 @@ def select():
           
           print(away_stats.sort_values(ascending=False))
           sort2=away_stats.sort_values(ascending=False)
+          top_t2=sort2.index[0]
+          print(f"[bold cyan]{top_t2}  is the Consistent in Away Games . [/bold cyan]",emoji.emojize(":Stadium:"))
+          
 
           sort2.plot(kind="bar")
           pl.xlabel("Teams")
@@ -87,6 +92,9 @@ def select():
 
           print(team_stats.sort_values(ascending=False,by="W"))
           sort3=team_stats.sort_values(ascending=False,by="W")
+          top_t3=sort3.index[0]
+          print(f"[bold cyan]{top_t3}  is the Team WIth most W . We can analyse thier result in their position , fisnishing at 1 . [/bold cyan]",emoji.emojize(":Race_Flag:"))
+          
 
           sort3.plot(kind="bar")
           pl.xlabel("Teams")
@@ -114,8 +122,11 @@ def select():
 
           winrate=(win/matches).sort_values(ascending=False)
           print(round(winrate,2))
-
           sort4=winrate
+          top_t4=sort4.index[0]
+
+          print(f"[bold cyan]{top_t4}  is the Team scored most Winrate . We can see as Thier result going. [/bold cyan]",emoji.emojize(":Trophy:"))
+          
           sort4.plot(kind="bar")
           pl.title("Best Team By  winning rate")
           pl.xlabel("Team")
@@ -140,6 +151,8 @@ def select():
           all_g=pd.concat([away_g,home_g])
           print(all_g.sort_values(ascending=False))
           sort5=all_g.sort_values(ascending=False)
+          top_t5=sort5.index[0]
+          print(f"[bold cyan]{top_t5}  is the Team scored most Goals. We can thier result as the champion. This Team is consistent in Home as well as Away matches . [/bold cyan]",emoji.emojize(":Soccer:"))
 
           sort5.plot(kind="bar")
           pl.title("Best Team By Goals")
@@ -173,6 +186,8 @@ def select():
         
            sort6=all_st["shotrate"]
            print(sort6)
+           top_t6=sort6.index[0]
+           print(f"[bold cyan]{top_t6}  is the Team wiht most Shotrate . They approach  as fire . Striking opponents defense [/bold cyan]",emoji.emojize(":Fire:"))
 
            sort6.plot(kind="bar")
            pl.title("Best Team By Shotrate")
@@ -199,6 +214,8 @@ def select():
            
            sort7=def_team.sort_values(ascending=True)
            print(sort7)
+           top_t7=sort7.index[0]
+           print(f"[bold cyan]{top_t7}  is the Team is a Shield . Even if the front of best attack this kept thier arena safe. [/bold cyan]",emoji.emojize(":Shield:"))
 
            sort7.plot(kind="bar")
            pl.title("Best Defensive Team ")
@@ -206,6 +223,36 @@ def select():
            pl.ylabel("DefenseRate")
            pl.plot()
            pl.show()
+
+        elif n == 9 :
+           
+
+          teams = sorted(df['HomeTeam'].unique())
+          for i ,team in enumerate(teams,1):
+             print(f"{i}.{team}")
+
+          chioce= int(input("Enter the team number : "))
+          teamnum= teams[chioce-1]
+          team_df = df[(df["HomeTeam"]==teamnum) | (df['AwayTeam']==teamnum)]
+         
+          h_goals = team_df[team_df['HomeTeam']==teamnum] ['FTHG'].sum()
+          a_goals = team_df[team_df["AwayTeam"]==teamnum] ['FTAG'].sum()
+          t_goals = a_goals + h_goals
+          
+
+          wins = len(team_df[
+           ((team_df['HomeTeam'] == teamnum) & (team_df['FTR'] == 'H')) |
+           ((team_df['AwayTeam'] == teamnum) & (team_df['FTR'] == 'A'))])
+          
+          matchw= len(team_df)
+          winr=wins/matchw
+
+        
+          print("Team : ",teamnum)
+          print("Total Goals : ",t_goals)
+          print("Winrate : ",round(winr,2))
+
+
 
         elif n == 8 :
            win_h=df[['FTR','HomeTeam']].copy()
@@ -218,13 +265,18 @@ def select():
 
            all_win = pd.concat([win_h,win_a])
            all_points= all_win.groupby('Team') ['Points'].sum().sort_values(ascending=False)
+           top_t8=all_points.index[0]
+
+           print(f"[bold cyan]{top_t8}  is the Champion Team. We can see thier prgress throughout season making the patter of victory[/bold cyan]",emoji.emojize(":Crown:"))
 
            for i in track(range(20),description="AND THE CHAMPION IS ......"): time.sleep(0.05) 
+           print(f"[bold cyan]{top_t8}  is the Champion Team. We can see thier prgress throughout season making the patter of victory[/bold cyan]",emoji.emojize(":Crown:"))
            print(emoji.emojize(":Soccer:"))
            print("------------------------------------------------------------------")
            print(emoji.emojize(":Crown:"),"SO THE CHAMPION IS ",all_points.head(1))
            print("------------------------------------------------------------------")
           
+        
 def show_menu():
    console = Console()
 
