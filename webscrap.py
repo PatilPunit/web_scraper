@@ -250,7 +250,13 @@ def select():
           winr=wins/matchw
 
           h_def = team_df[team_df['HomeTeam']==teamnum] ['FTAG'].sum()
-          h_win=team_df
+
+          h_win=len(team_df[
+           ((team_df['HomeTeam'] == teamnum) & (team_df['FTR'] == 'H'))])
+          h_lose=len(team_df[
+           ((team_df['HomeTeam'] == teamnum) & (team_df['FTR'] == 'A'))])
+          h_draw=len(team_df[
+             ((team_df['HomeTeam']==teamnum ) & (team_df['FTR']=='D'))])
 
           
     
@@ -261,6 +267,9 @@ def select():
           print("Shotrate : ",round(t_shotrate,2))
           print("Taken Goals : ",h_def)
           print("Toatal Wins : ",wins)
+          print("Wins : ", h_win)
+          print("Total lose : ",h_lose)
+          print("Total Draws : ",h_draw)
           
 
 
