@@ -84,7 +84,7 @@ def select():
           home_team.rename(columns={"HomeTeam":"Team"},inplace=True)
 
           away_team =  df[["AwayTeam","FTR"]].copy()
-          away_team["result"]=away_team["FTR"].map({'H':'W','D':'D','A':'L'})
+          away_team["result"]=away_team["FTR"].map({'H':'L','D':'D','A':'W'})
           away_team=away_team.rename(columns={"AwayTeam":"Team"},inplace=True)
  
           all_team = pd.concat([home_team,away_team])
@@ -184,7 +184,7 @@ def select():
            all_st=ts_team.groupby("Team").sum()
            all_st['shotrate']=all_st['Goals']/all_st['TeamShots']
         
-           sort6=all_st["shotrate"]
+           sort6=all_st["shotrate"].sort_values(ascending=False)
            print(sort6)
            top_t6=sort6.index[0]
            print(f"[bold cyan]{top_t6}  is the Team wiht most Shotrate . They approach  as fire . Striking opponents defense [/bold cyan]",emoji.emojize(":Fire:"))
@@ -212,7 +212,7 @@ def select():
            all_d=pd.concat([ad_team,hd_team])
            def_team=all_d.groupby("Team") ["Goals"].sum()
            
-           sort7=def_team.sort_values(ascending=True)
+           sort7=def_team.sort_values(ascending=False)
            print(sort7)
            top_t7=sort7.index[0]
            print(f"[bold cyan]{top_t7}  is the Team is a Shield . Even if the front of best attack this kept thier arena safe. [/bold cyan]",emoji.emojize(":Shield:"))
@@ -238,7 +238,9 @@ def select():
           h_goals = team_df[team_df['HomeTeam']==teamnum] ['FTHG'].sum()
           a_goals = team_df[team_df["AwayTeam"]==teamnum] ['FTAG'].sum()
           t_goals = a_goals + h_goals
-          
+
+          h_shot = team_df[team_df['HomeTeam']==teamnum] ['HS'].sum()
+          t_shotrate = h_goals   / h_shot      
 
           wins = len(team_df[
            ((team_df['HomeTeam'] == teamnum) & (team_df['FTR'] == 'H')) |
@@ -247,10 +249,19 @@ def select():
           matchw= len(team_df)
           winr=wins/matchw
 
-        
+          h_def = team_df[team_df['HomeTeam']==teamnum] ['FTAG'].sum()
+          h_win=team_df
+
+          
+    
+
           print("Team : ",teamnum)
           print("Total Goals : ",t_goals)
           print("Winrate : ",round(winr,2))
+          print("Shotrate : ",round(t_shotrate,2))
+          print("Taken Goals : ",h_def)
+          print("Toatal Wins : ",wins)
+          
 
 
 
