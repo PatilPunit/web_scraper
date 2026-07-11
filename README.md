@@ -17,7 +17,7 @@ A Python-based football data analysis tool that fetches real match data from onl
 - 🧠 Calculate win rates and shot efficiency
 - 🛡️ Identify best defensive teams
 - 👑 Predict league champions using points system
-- 🎨 Rich CLI interface with tables, colors, and emojis
+- 🎨 Rich CLI interface with tables, colors, and emojis 
 
 ---
 

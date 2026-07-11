@@ -9,6 +9,11 @@ from rich import print #for crafting font
 from rich.progress import track #for animation
 import time #tacking time
 
+
+import streamlit as st
+
+
+
 def clean_data(sr=pd.Series):
    sr.dropna
    sr.fillna(0,inplace=True)
@@ -44,6 +49,9 @@ def select():
         n = int(input("Enter your choice :"))
         if n==1 :
           print(emoji.emojize(":house:"),"[bold]show top home teams of full time [/bold]")   #showing the home team has best score at full time
+          
+
+
 
           home_goals=df[["HomeTeam","FTHG"]].copy()
           clean_data(home_goals) 
@@ -307,6 +315,10 @@ def select():
            all_win = pd.concat([win_h,win_a])
            all_points= all_win.groupby('Team') ['Points'].sum().sort_values(ascending=False)
            top_t8=all_points.index[0]
+         #   st.write(all_points)
+         #   st.title("Football analysis")
+           st.dataframe(all_points)
+
 
            
 
@@ -329,6 +341,9 @@ def select():
            t=pd.concat([h,a])
            am=t.groupby('Team') ['P'].value_counts().unstack(fill_value=0)
            print(am.sort_values(by="W",ascending=False))
+
+        elif n==11:
+           pass
               
 def show_menu():
    console = Console()
