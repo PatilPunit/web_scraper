@@ -110,5 +110,6 @@ This project is open-source and free to use.
 
 💡 Author
 
-Punit Patil asn
+Punit Patil 
+asn
 
