@@ -19,7 +19,7 @@ A Python-based football data analysis tool that fetches real match data from onl
 - 👑 Predict league champions using points system
 - 🎨 Rich CLI interface with tables, colors, and emojis 
 
----
+--- 
 
 🧰 Technologies Used
 
