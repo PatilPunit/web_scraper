@@ -6,4 +6,4 @@ REQUIRMENTS :-
 3. matplotlib
 4. rich
 5. emoji
- 
+  
