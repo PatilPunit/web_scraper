@@ -6,5 +6,6 @@ def clean_data(df:pd.DataFrame)-> pd.DataFrame:
     
     """
     df.drop_duplicates(inplace=True)
+    df.dropna(inplace=True)
     df.fillna(0, inplace=True)
     return df
