@@ -10,7 +10,7 @@ from rich.progress import track #for animation
 import time #tacking time
 
 
-import streamlit as st
+#import streamlit as st
 
 
 
